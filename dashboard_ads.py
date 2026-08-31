@@ -317,7 +317,7 @@ def parse_programa_hs(curso: str, modalidad: str, formulario: str) -> str:
     return "Sin programa"
 
 # ─── Conector Google Ads ──────────────────────────────────────────────────────
-@st.cache_data(ttl=3600, show_spinner=False)
+@st.cache_data(ttl=3600, max_entries=6, show_spinner=False)
 def get_google_ads_data(start: str, end: str) -> pd.DataFrame:
     try:
         from google.ads.googleads.client import GoogleAdsClient
@@ -374,7 +374,7 @@ def get_google_ads_data(start: str, end: str) -> pd.DataFrame:
         return pd.DataFrame()
 
 # ─── Conector Meta Ads ────────────────────────────────────────────────────────
-@st.cache_data(ttl=3600, show_spinner=False)
+@st.cache_data(ttl=3600, max_entries=6, show_spinner=False)
 def get_meta_ads_data(start: str, end: str) -> pd.DataFrame:
     try:
         url = f"https://graph.facebook.com/v21.0/act_{META_ACCOUNT_ID}/insights"
@@ -432,7 +432,7 @@ def get_meta_ads_data(start: str, end: str) -> pd.DataFrame:
         return pd.DataFrame()
 
 # ─── Conector LinkedIn Ads ────────────────────────────────────────────────────
-@st.cache_data(ttl=3600, show_spinner=False)
+@st.cache_data(ttl=3600, max_entries=6, show_spinner=False)
 def get_linkedin_ads_data(start: str, end: str) -> pd.DataFrame:
     """
     Requiere en secrets:
@@ -520,7 +520,7 @@ def get_linkedin_ads_data(start: str, end: str) -> pd.DataFrame:
         return pd.DataFrame()
 
 # ─── Conector TikTok Ads ──────────────────────────────────────────────────────
-@st.cache_data(ttl=3600, show_spinner=False)
+@st.cache_data(ttl=3600, max_entries=6, show_spinner=False)
 def get_tiktok_ads_data(start: str, end: str, token: str) -> pd.DataFrame:
     """
     Requiere en secrets:
@@ -593,7 +593,7 @@ def get_tiktok_ads_data(start: str, end: str, token: str) -> pd.DataFrame:
         return pd.DataFrame()
 
 # ─── Conector LinkedIn Ads vía Google Sheets (CSV manual) ────────────────────
-@st.cache_data(ttl=1800, show_spinner=False)
+@st.cache_data(ttl=1800, max_entries=6, show_spinner=False)
 def get_linkedin_sheets_data(start: str, end: str) -> pd.DataFrame:
     """
     Lee un Google Sheet publicado como CSV con los datos exportados manualmente
@@ -693,7 +693,7 @@ _CAT_EVENTOS = {"Webinar", "Open Day", "Open Day Digital", "Sesión Informativa 
 _KW_EVENTOS  = ("webinar", "open day", "openday", "puertas abiertas",
                  "sesión informativa", "sesion informativa")
 
-@st.cache_data(ttl=1800, show_spinner=False)
+@st.cache_data(ttl=1800, max_entries=6, show_spinner=False)
 def get_hubspot_leads(start: str, end: str, token: str, excluir_eventos: bool) -> pd.DataFrame:
     if not token:
         return pd.DataFrame()
